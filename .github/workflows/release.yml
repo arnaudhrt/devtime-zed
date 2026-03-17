@@ -46,13 +46,14 @@ jobs:
         run: |
           EXT=""
           if [ "${{ matrix.goos }}" = "windows" ]; then EXT=".exe"; fi
-          go build -ldflags="-s -w" -o "../devtime-ls${EXT}" .
+          mkdir -p ../build
+          go build -ldflags="-s -w" -o "../build/devtime-ls${EXT}" .
 
       - name: Zip
         run: |
           EXT=""
           if [ "${{ matrix.goos }}" = "windows" ]; then EXT=".exe"; fi
-          zip "${{ matrix.triple }}.zip" "devtime-ls${EXT}"
+          cd build && zip "../${{ matrix.triple }}.zip" "devtime-ls${EXT}"
 
       - uses: actions/upload-artifact@v4
         with:
