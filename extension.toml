@@ -1,7 +1,7 @@
 id = "devtime"
 name = "devtime"
 description = "Local-first coding time tracking."
-version = "0.0.3"
+version = "0.0.4"
 schema_version = 1
 authors = ["Arnaud Huret <arnaud3488@gmail.com>"]
 repository = "https://github.com/arnaudhrt/devtime-zed"
