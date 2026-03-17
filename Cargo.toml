@@ -7,5 +7,5 @@ edition = "2021"
 zed_extension_api = "0.7.0"
 
 [lib]
-name = "zed_devtime"
+name = "devtime_zed"
 crate-type = ["cdylib"]

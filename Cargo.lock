@@ -48,6 +48,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "devtime-zed"
+version = "0.0.3"
+dependencies = [
+ "zed_extension_api",
+]
+
+[[package]]
 name = "displaydoc"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -735,13 +742,6 @@ dependencies = [
  "quote",
  "syn",
  "synstructure",
-]
-
-[[package]]
-name = "zed-devtime"
-version = "0.0.1"
-dependencies = [
- "zed_extension_api",
 ]
 
 [[package]]
