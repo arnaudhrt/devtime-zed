@@ -1,0 +1,11 @@
+[package]
+name = "zed-devtime"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+zed_extension_api = "0.7.0"
+
+[lib]
+name = "zed_devtime"
+crate-type = ["cdylib"]

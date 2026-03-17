@@ -1,0 +1,73 @@
+name: Release devtime-ls
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - goos: darwin
+            goarch: arm64
+            triple: devtime-ls-aarch64-apple-darwin
+          - goos: darwin
+            goarch: amd64
+            triple: devtime-ls-x86_64-apple-darwin
+          - goos: linux
+            goarch: arm64
+            triple: devtime-ls-aarch64-unknown-linux-gnu
+          - goos: linux
+            goarch: amd64
+            triple: devtime-ls-x86_64-unknown-linux-gnu
+          - goos: windows
+            goarch: amd64
+            triple: devtime-ls-x86_64-pc-windows-msvc
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: devtime-ls/go.mod
+
+      - name: Build
+        env:
+          CGO_ENABLED: "0"
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          EXT=""
+          if [ "${{ matrix.goos }}" = "windows" ]; then EXT=".exe"; fi
+          go build -ldflags="-s -w" -o "devtime-ls${EXT}" ./devtime-ls
+
+      - name: Zip
+        run: |
+          EXT=""
+          if [ "${{ matrix.goos }}" = "windows" ]; then EXT=".exe"; fi
+          zip "${{ matrix.triple }}.zip" "devtime-ls${EXT}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.triple }}
+          path: ${{ matrix.triple }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.zip"
+          generate_release_notes: true
