@@ -34,7 +34,7 @@ impl DevtimeExtension {
         );
 
         let release = zed::latest_github_release(
-            "arnaudhrt/zed-devtime",
+            "arnaudhrt/devtime-zed",
             zed::GithubReleaseOptions {
                 require_assets: true,
                 pre_release: false,
