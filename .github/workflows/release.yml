@@ -38,6 +38,7 @@ jobs:
           go-version-file: devtime-ls/go.mod
 
       - name: Build
+        working-directory: devtime-ls
         env:
           CGO_ENABLED: "0"
           GOOS: ${{ matrix.goos }}
@@ -45,7 +46,7 @@ jobs:
         run: |
           EXT=""
           if [ "${{ matrix.goos }}" = "windows" ]; then EXT=".exe"; fi
-          go build -ldflags="-s -w" -o "devtime-ls${EXT}" ./devtime-ls
+          go build -ldflags="-s -w" -o "../devtime-ls${EXT}" .
 
       - name: Zip
         run: |

@@ -1,6 +1,6 @@
 [package]
-name = "zed-devtime"
-version = "0.0.1"
+name = "devtime-zed"
+version = "0.0.3"
 edition = "2021"
 
 [dependencies]
